@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<title>画布</title>
+		<style type="text/css">
+			.content {
+				width: 100%;
+				height: 100%;
+				display: flex;
+				flex-wrap: wrap;
+			}
+			
+			.dd {
+				margin-left: 10px;
+				margin-top: 10px;
+			}
+		</style>
+		<script type="text/javascript">
+			window.onload = function() {
+				/**
+				 * 画直线
+				 */
+				var can = document.getElementById("can");
+				can.width = 300;
+				can.height = 300;
+				can.style.background = '#CCC';
+
+				var ctx = can.getContext('2d');
+
+				ctx.beginPath();
+				ctx.moveTo(10, 10);
+				ctx.lineTo(200, 170);
+				ctx.closePath();
+				ctx.lineWidth = 1;
+				ctx.strokeStyle = 'red';
+				ctx.stroke();
+				/**
+				 * 画三角形
+				 */
+				var can2 = document.getElementById("can2");
+				can2.width = 300;
+				can2.height = 300;
+				can2.style.background = '#CCC';
+
+				var cc = can2.getContext('2d');
+				cc.beginPath();
+				cc.lineJoin = 'round'; //给三角形设置圆角
+				cc.moveTo(30, 30);
+				cc.lineTo(59, 170);
+				cc.lineTo(200, 100);
+				cc.closePath();
+				cc.lineWidth = 6;
+				cc.fillStyle = 'red';
+				cc.fill();
+				cc.strokeStyle = 'green';
+				cc.stroke();
+
+				/**
+				 * 画多个矩形框
+				 */
+				var can3 = document.getElementById("can3");
+				can3.width = 300;
+				can3.height = 300;
+				can3.style.background = '#CCC';
+
+				var c1 = can3.getContext('2d');
+				c1.beginPath();
+				c1.fillStyle = 'darkcyan';
+				c1.fillRect(30, 30, 100, 50);
+
+				c1.fillStyle = 'salmon';
+				c1.fillRect(40, 40, 100, 50);
+				c1.fillStyle = 'darkturquoise';
+				c1.fillRect(50, 50, 100, 50);
+				c1.fillStyle = 'firebrick';
+				c1.fillRect(60, 60, 100, 50);
+
+				c1.strokeStyle = 'blueviolet';
+				c1.strokeRect(70, 70, 100, 50);
+
+				/**
+				 * 画圆
+				 */
+				var can4 = document.getElementById("can4");
+				can4.width = 300;
+				can4.height = 300;
+				can4.style.background = '#CCC';
+
+				var c2 = can4.getContext('2d');
+				c2.beginPath();
+				c2.arc(30, 30, 25, 0, Math.PI * 2, true);
+				c2.closePath();
+				c2.strokeStyle = 'slateblue';
+				c2.lineWidth = 3;
+				c2.stroke();
+				//循环画圆
+				for(var i = 0; i < 10; i++) {
+					c2.beginPath();
+					c2.arc((i * 25) + 50, (i * 25) + 50, 8 * (i + 1), 0, Math.PI * 2, true);
+					c2.closePath();
+					c2.fillStyle = 'rgba(200,0,125,' + (10 - i) * 0.1 + ')';
+					c2.fill();
+				}
+				/**
+				 * 画一个带圆角的矩形
+				 */
+				//首先先定义一个方法
+				function createRect(ctx, x1, y1, width, height, radius) {
+					ctx.beginPath();
+					//从左上角开始
+					ctx.moveTo(x1 + radius, y1);
+					//画上部分的直线
+					ctx.lineTo(x1 + width - radius, y1);
+					//画右上角的圆角
+					ctx.arcTo(x1 + width, y1, x1 + width, y1 + radius, radius);
+					//画右边的直线
+					ctx.lineTo(x1 + width, y1 + height - radius);
+					//画右下角的圆角
+					ctx.arcTo(x1 + width, y1 + height, x1 + width - radius, y1 + height, radius);
+					//画下边的直线
+					ctx.lineTo(x1 + radius, y1 + height);
+					//画左下角的圆角
+					ctx.arcTo(x1, y1 + height, x1, y1 + height - radius, radius);
+					//画左边的直线
+					ctx.lineTo(x1, y1 + radius);
+					//画左上角的圆角
+					ctx.arcTo(x1, y1, x1 + radius, y1, radius);
+					ctx.closePath();
+					ctx.lineWidth = 2;
+					ctx.strokeStyle = 'red';
+					ctx.stroke();
+				}
+				var can5 = document.getElementById("can5");
+				can5.width = 300;
+				can5.height = 300;
+				can5.style.background = '#CCC';
+
+				var c3 = can5.getContext('2d');
+				createRect(c3, 50, 30, 200, 100, 15);
+
+				/**
+				 * 画文字（字符串）
+				 */
+				var can6 = document.getElementById("can6");
+				can6.width = 300;
+				can6.height = 300;
+				can6.style.background = '#CCC';
+
+				var c4 = can6.getContext('2d');
+				c4.fillStyle = 'salmon';
+				c4.font = 'italic 40px 隶书'
+				//1、显示的文本；2、距左边的距离；3、距上边的距离；4、文字的最大宽度
+				c4.fillText('Garyhu', 20, 40, 50);
+				c4.font = 'italic 30px 宋体'
+
+				c4.strokeStyle = 'lawngreen';
+				c4.strokeText('胡伟伟', 100, 40, 80);
+
+				//加阴影
+				c4.shadowBlur = 2.6;
+				c4.shadowColor = 'darkmagenta';
+				c4.shadowOffsetX = 4;
+				c4.shadowOffsetY = -6;
+				c4.fillText('带阴影的字', 30, 200, 100);
+
+				/**
+				 * 画图片
+				 */
+				var can7 = document.getElementById("can7");
+				can7.width = 300;
+				can7.height = 300;
+				can7.style.background = '#CCC';
+
+				var c5 = can7.getContext('2d');
+
+				var img = new Image();
+				img.src = '../img/img6.jpg';
+				img.onload = function() {
+					//1、图片资源；2、距左边距离；3、距上面距离；4、图片宽度；5、图片高度
+					c5.drawImage(img, 10, 30, 15, 20);
+					/*
+                                            参数说明
+                          Image image, integer sx, integer sy, integer sw, integer sh,
+                          float dx, float dy,float dw, float dh
+
+                          sx, sy 两个参数控制从原图片上的哪一个位置开始挖去，
+                          sw, sh 两个参数控制从原图片挖球的宽度和高度；
+                          dx, dy 两个参数控制把挖取的图片绘制到画布上的哪个位置，而
+                          dw, dh 则控制对绘制图片进行缩放，绘制出来的宽度是 dw, 高度 dh
+                    */
+                   c5.drawImage(img,50,50,50,50,100,20,50,100)
+				}
+				/**
+				 * 画贝塞尔曲线
+				 */
+				var can8 = document.getElementById("can8");
+				can8.width = 300;
+				can8.height = 300;
+				can8.style.background = '#CCC';
+
+				var c6 = can8.getContext('2d');
+			}
+		</script>
+	</head>
+
+	<body>
+		<div class="content">
+			<div class="dd">
+				<canvas id="can">该浏览器不支持Canvas</canvas>
+			</div>
+			<div class="dd">
+				<canvas id="can2"></canvas>
+			</div>
+			<div class="dd">
+				<canvas id="can3"></canvas>
+			</div>
+			<div class="dd">
+				<canvas id="can4"></canvas>
+			</div>
+			<div class="dd">
+				<canvas id="can5"></canvas>
+			</div>
+			<div class="dd">
+				<canvas id="can6"></canvas>
+			</div>
+			<div class="dd">
+				<canvas id="can7"></canvas>
+			</div>
+			<div class="dd">
+				<canvas id="can8"></canvas>
+			</div>
+		</div>
+	</body>
+
+</html>
